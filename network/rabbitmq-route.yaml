@@ -1,0 +1,33 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: rabbitmq-amqp
+  namespace: messaging
+spec:
+  entryPoints:
+    - rabbitmq
+  routes:
+    - match: HostSNI(`*`)
+      services:
+        - name: rabbitmq
+          namespace: messaging
+          port: 5672
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: rabbitmq-http
+  namespace: messaging
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`rabbitmq.<YOUR_DOMAIN>`)
+      services:
+        - kind: Service
+          name: rabbitmq
+          namespace: messaging
+          port: 15672

@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dashboard-basic-auth-creds
+  namespace: network
+type: kubernetes.io/basic-auth
+stringData:
+  username: admin
+  password: admin
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: dashboard-basic-auth
+  namespace: network
+spec:
+  basicAuth:
+    secret: dashboard-basic-auth-creds
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: dashboard
+  namespace: network
+spec:
+  entryPoints:
+    - traefik
+  routes:
+    - kind: Rule
+      match: Host(`traefik.<YOUR_DOMAIN>`)
+      middlewares:
+        - name: dashboard-basic-auth
+          namespace: network
+      services:
+        - kind: TraefikService
+          name: api@internal

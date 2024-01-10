@@ -1,0 +1,24 @@
+global:
+  postgresql:
+    auth:
+      postgresPassword: "root"
+      username: "root"
+      password: "root"
+      database: "root"
+
+primary:
+  persistence:
+    enabled: true
+    size: 8Gi
+    storageClass: gp2
+  service:
+    type: ClusterIP
+    port: 5432
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: 250m
+    memory: 256Mi
