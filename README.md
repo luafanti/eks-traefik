@@ -1,6 +1,6 @@
 # Exposing publicly applications on AWS EKS with Traefik Ingress Controller
 
-Demo of exposing public applications on AWS EKS with Traefik Proxy. This repository is a part of [Dev.to article]()
+Demo of exposing public applications on AWS EKS with Traefik Proxy. This repository is a part of [Dev.to article](https://dev.to/luafanti/exposing-public-applications-on-aws-eks-with-traefik-1p1c)
 
 ### Prerequisites
 
